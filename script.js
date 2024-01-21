@@ -1,25 +1,26 @@
 'use strict';
 
 let secretNumber = Math.floor(Math.random() * 10) + 1;
-let score = 10;
+let score = 100;
 let highscore = 0;
-
+let i = 0;
 const displayMessage = function (message) {
   document.querySelector('.message').textContent = message;
 };
+const resetMessage = function () {
+  document.querySelector('.again').style.display = 'block';
+};
 
 document.querySelector('.check').addEventListener('click', function () {
+  //Converting String to Number
   const guess = Number(document.querySelector('.guess').value);
-  console.log(guess, typeof guess);
 
   // When there is no input
   if (!guess) {
-    // document.querySelector('.message').textContent = '⛔️ No number!';
     displayMessage('⛔️ Specify a number!');
 
     // When player wins
   } else if (guess === secretNumber) {
-    // document.querySelector('.message').textContent = '🎉 Correct Number!';
     displayMessage('🎉 Correct Number!');
     document.querySelector('.number').textContent = secretNumber;
 
@@ -35,62 +36,46 @@ document.querySelector('.check').addEventListener('click', function () {
   } else if (guess !== secretNumber) {
     if (score > 1) {
       displayMessage(guess > secretNumber ? '📈 Too high!' : '📉 Too low!');
-      score--;
+      score = score - 10;
       document.querySelector('.score').textContent = score;
-    } else {
+      resetMessage();
+    } else if (score === 0) {
       displayMessage('💥 You lost the game!');
       document.querySelector('.score').textContent = 0;
     }
   }
-
-  //   // When guess is too high
-  // } else if (guess > secretNumber) {
-  //   if (score > 1) {
-  //     document.querySelector('.message').textContent = '📈 Too high!';
-  //     score--;
-  //     document.querySelector('.score').textContent = score;
-  //   } else {
-  //     document.querySelector('.message').textContent = '💥 You lost the game!';
-  //     document.querySelector('.score').textContent = 0;
-  //   }
-
-  //   // When guess is too low
-  // } else if (guess < secretNumber) {
-  //   if (score > 1) {
-  //     document.querySelector('.message').textContent = '📉 Too low!';
-  //     score--;
-  //     document.querySelector('.score').textContent = score;
-  //   } else {
-  //     document.querySelector('.message').textContent = '💥 You lost the game!';
-  //     document.querySelector('.score').textContent = 0;
-  //   }
-  // }
 });
-
+//Reset
 document.querySelector('.again').addEventListener('click', function () {
-  score = 10;
+  score = 100;
   secretNumber = Math.floor(Math.random() * 10) + 1;
 
-  // document.querySelector('.message').textContent = 'Start guessing...';
   displayMessage('Start guessing...');
   document.querySelector('.score').textContent = score;
   document.querySelector('.number').textContent = '?';
   document.querySelector('.guess').value = '';
-
   document.querySelector('body').style.backgroundColor = '#222';
   document.querySelector('.number').style.width = '10rem';
+  document.querySelector('.again').style.display = 'none';
 });
 
-///////////////////////////////////////
-// Coding Challenge #1
+const increment = document.querySelector('.plus');
+const decrement = document.querySelector('.minus');
 
-/* 
-Implement a game rest functionality, so that the player can make a new guess! Here is how:
+increment.addEventListener('click', function (e) {
+  e.preventDefault();
 
-1. Select the element with the 'again' class and attach a click event handler
-2. In the handler function, restore initial values of the score and secretNumber variables
-3. Restore the initial conditions of the message, number, score and guess input field
-4. Also restore the original background color (#222) and number width (15rem)
+  document.querySelector('.guess').value = i;
+  i++;
+});
 
-GOOD LUCK 😀
-*/
+decrement.addEventListener('click', function (e) {
+  e.preventDefault();
+  if (i > 1) {
+    i--;
+    document.querySelector('.guess').value = i;
+  } else if (i === 0) {
+    displayMessage('🚫 Negative values is not allowed');
+    document.querySelector('.guess').style.borderStyle = '4px solid red';
+  }
+});
