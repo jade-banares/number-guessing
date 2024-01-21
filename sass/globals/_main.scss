@@ -145,8 +145,11 @@ input[type='number'] {
   .main-content {
     flex-direction: column;
     section {
-      &:last-child {
+      &:first-child {
         margin-top: 40px;
+      }
+      &:last-child {
+        margin-top: 60px;
         p {
           text-align: center;
         }
