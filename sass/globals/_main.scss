@@ -131,14 +131,14 @@ input[type='number'] {
   }
 }
 @media (max-width: 768px) {
-  h1 {
-    font-size: 2rem;
-  }
   .header-content {
     div {
       &:first-child {
         flex-direction: column;
         order: 1;
+        h1 {
+          font-size: 2rem;
+        }
       }
     }
   }
