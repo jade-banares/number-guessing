@@ -26,7 +26,10 @@ document.querySelector('.check').addEventListener('click', function () {
 
     document.querySelector('body').style.backgroundColor = '#60b347';
     document.querySelector('.number').style.width = '10rem';
-
+    // document.querySelector('.check').style.display = 'none';
+    document.querySelector('.again').style.display = 'block';
+    // document.querySelector('.minus').disabled = true;
+    // document.querySelector('.plus').disabled = true;
     if (score > highscore) {
       highscore = score;
       document.querySelector('.highscore').textContent = highscore;
@@ -57,6 +60,7 @@ document.querySelector('.again').addEventListener('click', function () {
   document.querySelector('body').style.backgroundColor = '#222';
   document.querySelector('.number').style.width = '10rem';
   document.querySelector('.again').style.display = 'none';
+  document.querySelector('.guess').value = 0;
 });
 
 const increment = document.querySelector('.plus');
